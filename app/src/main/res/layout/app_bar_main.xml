@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_700" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/card_viewe"
+        android:elevation="3dp"
+        app:cardCornerRadius="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_viewe">
+
+        <Button
+            android:id="@+id/mCameraButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_button"
+            android:padding="13dp"
+            android:text="Camera"
+            android:textColor="#FFFFFFF"
+            app:layout_constraintBaseline_toTopOf="@id/mResultTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.873"
+            app:layout_constraintStart_toEndOf="@+id/mGalleryButton"
+            app:layout_constraintTop_toBottomOf="@id/mPhotoImageView" />
+
+        <Button
+            android:id="@+id/mGalleryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:background="@drawable/custom_button"
+            android:padding="13dp"
+            android:text="Gallery"
+            android:textColor="#FFFFFFF"
+            app:layout_constraintBottom_toTopOf="@id/mResultTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mPhotoImageView" />
+
+        <ImageView
+            android:id="@+id/mPhotoImageView"
+            android:layout_width="278dp"
+            android:layout_height="298dp"
+            android:layout_marginTop="78dp"
+            android:background="@drawable/img_v"
+            android:contentDescription="View Display Image"
+            android:paddingBottom="29dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/automn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintsTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/mDetectButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/custom_button"
+            android:padding="13dp"
+            android:text="Detect"
+            android:textColor="#FFFFFFF"
+            app:layout_constraintBottom_toTopOf="@+id/mResultTextView"
+            app:layout_constraintEnd_toStartOf="@+id/mCameraButton"
+            app:layout_constraintStart_toEndOf="@+id/mGalleryButton"
+            app:layout_constraintTop_toBottomOf="@+id/mPhotoImageView" />
+
+        <TextView
+            android:id="@+id/mResultTextView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="148dp"
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
