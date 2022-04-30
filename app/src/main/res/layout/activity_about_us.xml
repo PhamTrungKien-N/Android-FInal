@@ -20,15 +20,26 @@
                 android:layout_height="210dp"
                 app:cardBackgroundColor="#FF8266"
                 app:cardCornerRadius="30dp"
-
-
-
-
-
+                app:cardElevation="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="195dp"
+                    android:layout_height="125dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_margin="20dp"/>
+                <TextView
+                    android:layout_width="193dp"
+                    android:layout_height="96dp"
+                    android:gravity="center"
+                    android:text="Techno Learning"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:layout_marginTop="112dp"
+                    android:layout_marginStart="20dp"/>
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </LinearLayout>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
