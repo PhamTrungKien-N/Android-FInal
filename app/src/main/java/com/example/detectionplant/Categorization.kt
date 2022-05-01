@@ -4,6 +4,7 @@ import android.content.res.AssetManager
 import android.graphics.Bitmap
 import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
+import java.nio.ByteBuffer
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
 import java.security.cert.CertPath
@@ -46,8 +47,15 @@ class Categorization(assetManager: AssetManager,modelPath: String,labelPath: Str
     }
     fun recognizeImage(bitmap: Bitmap): List<com.example.detectionplant.Categorization.Categorization>
     {
-
+        val scaleBitmap = Bitmap.createScaledBitmap(bitmap,GVN_INP_SZ,GVN_INP_SZ,false)
+        val byteBuffer = convertBitmapToByteBuffer(scaleBitmap)
+        val result = Array(1){ FloatArray(ROW_LINE.size)}
+        PITNR.run(byteBuffer,result)
+        return getSortedResult(result)
     }
 
+    private fun convertBitmapToByteBuffer(scaleBitmap: Bitmap?): ByteBuffer {
+        val byteBuffer = ByteBuffer.allocateDirect(4*GVN_INP_SZ*IMAGE_PXL_SZ)
+    }
 
 }
