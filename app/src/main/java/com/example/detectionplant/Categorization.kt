@@ -5,9 +5,11 @@ import android.graphics.Bitmap
 import org.tensorflow.lite.Interpreter
 import java.io.FileInputStream
 import java.nio.ByteBuffer
+import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
 import java.nio.channels.FileChannel
-import java.security.cert.CertPath
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Categorization(assetManager: AssetManager,modelPath: String,labelPath: String,inputSize: Int) {
     private val GVN_INP_SZ: Int = inputSize
@@ -54,8 +56,50 @@ class Categorization(assetManager: AssetManager,modelPath: String,labelPath: Str
         return getSortedResult(result)
     }
 
+    private fun getSortedResult(result: Array<FloatArray>): List<com.example.detectionplant.Categorization.Categorization> {
+
+        val pq = PriorityQueue(
+            GREAT_OUTCOME_MXX,
+            kotlin.Comparator<com.example.detectionplant.Categorization.Categorization> {
+                (_, _, confidence1), (_, _, confidence2)
+                -> java.lang.Float.compare(confidence1,confidence2)* -1}
+        )
+        for (i in ROW_LINE.indices){
+            val confidence = result[0][i]
+            if (confidence >= POINT_THRHLDD){
+                pq.add(com.example.detectionplant.Categorization.Categorization(
+                    ""+i,
+                    if (ROW_LINE.size>i) ROW_LINE[i] else "Unknown",confidence
+                ))
+            }
+        }
+        val recognitions = ArrayList<com.example.detectionplant.Categorization.Categorization>()
+        val recognitionSize = Math.min(pq.size,GREAT_OUTCOME_MXX)
+        for(i in 0 until recognitionSize){
+            recognitions.add(pq.poll())
+        }
+        return recognitions
+    }
+
     private fun convertBitmapToByteBuffer(scaleBitmap: Bitmap?): ByteBuffer {
-        val byteBuffer = ByteBuffer.allocateDirect(4*GVN_INP_SZ*IMAGE_PXL_SZ)
+        val byteBuffer = ByteBuffer.allocateDirect(4*GVN_INP_SZ*IMAGE_PXL_SZ*IMAGE_PXL_SZ)
+        byteBuffer.order(ByteOrder.nativeOrder())
+        val intValue = IntArray(GVN_INP_SZ*GVN_INP_SZ)
+
+        scaleBitmap!!.getPixels(intValue,0,scaleBitmap.width,0,0,scaleBitmap.width,scaleBitmap.height)
+        var pixel =0
+        for(i in 0 until GVN_INP_SZ){
+            for(j in 0 until GVN_INP_SZ){
+                val `val` = intValue[pixel++]
+
+                byteBuffer.putFloat((((`val`.shr(16) and 0xFF)-PHOTO_MEN)/PHOTO_SDEVIATE))
+                byteBuffer.putFloat((((`val`.shr(8) and 0xFF)-PHOTO_MEN)/PHOTO_SDEVIATE))
+                byteBuffer.putFloat((((`val` and 0xFF)-PHOTO_MEN)/PHOTO_SDEVIATE))
+
+            }
+        }
+        return byteBuffer
+
     }
 
 }
